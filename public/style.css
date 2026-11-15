@@ -1,0 +1,74 @@
+:root { color-scheme: light; font-family: Arial, Helvetica, sans-serif; color: #000; background: #fff; }
+* { box-sizing: border-box; }
+body { margin: 8px; min-width: 806px; }
+.page-header { width: 790px; margin: 8px auto 16px; text-align: center; height: 99px; }
+.page-header img { display: inline-block; }
+#applet { width: 790px; height: 660px; margin: 0 auto; position: relative; }
+.screen { width: 100%; height: 100%; display: grid; gap: 5px; font-size: 12px; }
+[hidden] { display: none !important; }
+.panel { background: #b4b4c8; }
+#lobby { grid-template-rows: 44px 48px minmax(0, 1fr) 185px; }
+.name-panel, .create-panel { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 0; padding: 3px; }
+.name-panel label { font-weight: bold; margin-right: 3px; }
+input, select, button { color: #000; font: 12px Arial, Helvetica, sans-serif; border-radius: 0; }
+input { height: 25px; background: #fff; border: 2px solid; border-color: #777 #eee #eee #777; padding: 2px 4px; min-width: 0; }
+select { height: 25px; border: 1px solid #777; background: #fff; padding: 1px 3px; }
+button { background: #efefef; border: 2px solid; border-color: #fff #737373 #737373 #fff; padding: 3px 12px; cursor: pointer; min-height: 25px; }
+button:active:not(:disabled) { border-color: #737373 #fff #fff #737373; }
+button:disabled { color: #777; cursor: default; }
+input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid #28283c; outline-offset: 1px; }
+.create-panel label:not(:first-child) { margin-left: 4px; }
+#game-name { width: 230px; }
+.sound-toggle { width: 30px; height: 27px; flex-shrink: 0; margin-left: 8px; padding: 3px; display: inline-flex; align-items: center; justify-content: center; }
+.sound-toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sound-toggle .sound-waves { display: none; }
+.sound-toggle[aria-pressed="true"] .sound-waves { display: inline; }
+.sound-toggle[aria-pressed="true"] .sound-slash { display: none; }
+.implicit-submit, .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); border: 0; }
+.games-panel { background: #c8c8b4; padding: 3px; min-height: 0; }
+.games-inner { height: 100%; background: #fff; display: flex; flex-direction: column; }
+h1 { margin: 0; padding: 9px 6px; font-size: 14px; font-weight: bold; text-align: center; }
+.game-table-scroll { overflow-y: auto; flex: 1; min-height: 0; scrollbar-gutter: stable; }
+table { width: 100%; border-spacing: 1px; table-layout: fixed; font-size: 12px; }
+.game-col { width: 36%; }
+.join-col { width: 64px; }
+th { background: #b4b4c8; font-weight: bold; padding: 5px 2px; position: sticky; top: 0; }
+td { height: 29px; text-align: center; padding: 1px 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+td:first-child { text-align: left; padding-left: 8px; }
+td button { width: 100%; padding: 1px 7px; }
+.chat-panel { padding: 3px; min-height: 0; }
+.lobby-chat { display: grid; grid-template-rows: 25px minmax(0, 1fr); gap: 3px; }
+.entry-row { display: flex; align-items: center; margin: 0; gap: 6px; }
+.entry-row label { width: 40px; text-align: right; flex-shrink: 0; }
+.entry-row input { flex: 1; width: 0; }
+.messages { background: #fff; border: 2px solid; border-color: #777 #eee #eee #777; overflow-y: scroll; overflow-wrap: anywhere; padding: 3px 5px; font-size: 12px; line-height: 17px; white-space: pre-wrap; min-height: 0; }
+.message-error { color: #a00000; }
+.message-gameover { font-weight: bold; }
+#game { grid-template-rows: 38px 115px minmax(0, 1fr) 183px; }
+.game-toolbar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 3px; }
+.pot-panel, .players-panel { background: #c8c8b4; padding: 3px; min-height: 0; }
+.pot { height: 100%; display: grid; grid-template-columns: repeat(35, minmax(0, 1fr)); grid-template-rows: repeat(3, 1fr); background: #fff; overflow: hidden; }
+.pot-slot { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: normal; white-space: pre; }
+.pot-separator { font-size: 12px; color: #000; }
+.players { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; height: 100%; }
+.player { min-width: 0; display: grid; grid-template-rows: 25px minmax(0, 1fr) 24px; gap: 2px; }
+.player-name, .player-count { background: #404040; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; padding: 2px 4px; overflow: hidden; white-space: nowrap; }
+.player-name { color: #0f0; }
+.player-name.is-ready { background: #28283c; }
+.player-count { color: #ff0; }
+.player-words { background: #fff; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(12, minmax(0, 1fr)); gap: 1px; min-height: 0; }
+.player-word { font-size: 14px; font-weight: bold; display: flex; align-items: center; padding: 0 3px; overflow: hidden; white-space: nowrap; }
+.game-chat { display: grid; grid-template-columns: minmax(0, 1fr) 66px; grid-template-rows: 53px minmax(0, 1fr); gap: 3px 5px; }
+.game-entries { display: grid; grid-template-rows: 25px 25px; gap: 3px; }
+.game-chat .messages { grid-column: 1 / -1; }
+.clock { background: #808080; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; gap: 1px; }
+.clock span { font-size: 14px; font-weight: bold; }
+.clock output { color: #ff0; height: 25px; font-size: 24px; }
+.clock.running { background: #28283c; }
+#connection { position: absolute; inset: 0 0 auto; z-index: 2; background: #fff7d0; border: 1px solid #9b8b55; text-align: center; padding: 9px; font-size: 12px; }
+footer { width: 790px; margin: 9px auto 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 11px; color: #555; min-height: 20px; }
+.text-button { background: none; border: 0; padding: 0; font-size: 11px; color: #0000ee; text-decoration: underline; min-height: 0; }
+dialog { width: 640px; max-height: 85vh; border: 1px solid #555; padding: 22px; line-height: 1.5; font-size: 14px; }
+dialog::backdrop { background: #0005; }
+dialog h2 { font-size: 18px; margin-top: 0; }
+.help-close { float: right; margin-left: 12px; }

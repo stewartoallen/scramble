@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S C R A M B L E</title>
+  <link rel="icon" href="/assets/scramble.gif" type="image/gif">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="page-header"><img src="/assets/scramble.gif" width="600" height="99" alt="Scramble"></header>
+  <main id="applet" aria-label="Scramble game">
+    <div id="connection" role="status">Connecting to the dealer…</div>
+    <section id="lobby" class="screen" aria-label="Lobby">
+      <form id="name-form" class="panel name-panel">
+        <label for="name">Your Name</label>
+        <input id="name" name="name" maxlength="24" size="15" autocomplete="nickname" required title="Type your name and press Enter">
+      </form>
+      <form id="create-form" class="panel create-panel">
+        <label for="game-name">Create a Game</label>
+        <input id="game-name" name="game-name" maxlength="40" size="20" autocomplete="off" required title="Type a game name and press Enter">
+        <label for="level">Level</label>
+        <select id="level"><option value="0">Beginner</option><option value="1" selected>Normal</option><option value="2">Expert</option></select>
+        <label for="speed">Speed</label>
+        <select id="speed"><option value="0">Slow</option><option value="1" selected>Medium</option><option value="2">Fast</option><option value="3">Blitz</option></select>
+        <button id="lobby-sound" class="sound-toggle" type="button" aria-label="Turn sound on" title="Turn sound on" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 4 6 8H3v8h3l5 4Z"></path>
+            <path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"></path>
+            <path class="sound-slash" d="m3 3 18 18"></path>
+          </svg>
+        </button>
+        <button class="implicit-submit" type="submit" tabindex="-1" aria-label="Create game">Create</button>
+      </form>
+      <section class="panel games-panel" aria-label="Available games">
+        <div class="games-inner">
+          <h1>Join a Game in Progress</h1>
+          <div class="game-table-scroll"><table>
+            <colgroup><col class="game-col"><col><col><col><col><col class="join-col"></colgroup>
+            <thead><tr><th scope="col">Game</th><th scope="col">Players</th><th scope="col">Level</th><th scope="col">Speed</th><th scope="col">Time</th><th scope="col"><span class="sr-only">Join</span></th></tr></thead>
+            <tbody id="games"></tbody>
+          </table></div>
+        </div>
+      </section>
+      <section class="panel chat-panel lobby-chat">
+        <form id="lobby-chat-form" class="entry-row"><label for="lobby-chat">Chat</label><input id="lobby-chat" maxlength="500" autocomplete="off"></form>
+        <div id="lobby-messages" class="messages" role="log" aria-label="Lobby messages" aria-live="polite"></div>
+      </section>
+    </section>
+    <section id="game" class="screen" aria-label="Game" tabindex="-1" hidden>
+      <div class="panel game-toolbar">
+        <button id="ready" type="button">Start</button>
+        <button id="sound" type="button" aria-pressed="false">Sound On</button>
+        <button id="leave" type="button">Leave</button>
+      </div>
+      <section class="panel pot-panel" aria-label="Letter pot"><div id="pot" class="pot"></div></section>
+      <section class="panel players-panel" aria-label="Players and words"><div id="players" class="players"></div></section>
+      <section class="panel chat-panel game-chat">
+        <div class="game-entries">
+          <form id="word-form" class="entry-row"><label for="word">Word</label><input id="word" maxlength="24" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="play-status"></form>
+          <form id="game-chat-form" class="entry-row"><label for="game-chat">Chat</label><input id="game-chat" maxlength="500" autocomplete="off"></form>
+        </div>
+        <div id="clock" class="clock"><span>Clock</span><output id="clock-value" aria-label="Countdown"></output></div>
+        <div id="game-messages" class="messages" role="log" aria-label="Game messages" aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+  <footer>
+    <span id="play-status">Type your name and press Enter. Enter also submits a new game, word, or chat.</span>
+    <button id="help-open" type="button" class="text-button">Instructions</button>
+  </footer>
+  <dialog id="help" aria-labelledby="help-title">
+    <form method="dialog"><button class="help-close" aria-label="Close instructions">Close</button></form>
+    <h2 id="help-title">How to play Scramble</h2>
+    <p>Collect the greatest number of letter tiles before the game ends. There are 98 tiles and up to four players. Additional visitors become spectators.</p>
+    <p>Enter your name in the lobby and press Enter. To create a game, enter a game name, select a level and speed, then press Enter in the game-name field. Or join an existing game. All players must press Start before dealing begins.</p>
+    <p>Type a word of three or more letters in the Word field and press Enter. You can use letters from the pot, rearrange one entire word from any player, or combine one entire word with letters from the pot. You cannot combine two words.</p>
+    <ul>
+      <li>A <strong>take</strong> makes a word using only the pot. These plays take priority over steals.</li>
+      <li>A <strong>steal</strong> makes a new word from another player's whole word, optionally adding pot letters.</li>
+      <li>A <strong>defend</strong> does the same with your own word.</li>
+      <li>A word cannot return to an earlier spelling in its history. Adding an S to make a plural is not a valid steal or defense in English.</li>
+      <li>An invalid word or a word that cannot be made from the board costs your shortest word. Its letters return to the dealer to be dealt again. Errors immediately after a successful play are forgiven.</li>
+      <li>The score is the number of letters you hold. Each player can hold 24 words; at that limit you can still defend your own words.</li>
+    </ul>
+    <p>When the dealer runs out of letters, the endgame countdown begins. Successful plays reset the clock, and errors no longer cost words. A full 52-letter pot also starts a countdown, but penalties still apply while undealt tiles remain. Using pot letters resumes dealing.</p>
+    <p>All human players pressing Stop ends the game. The largest tile count wins; equal scores tie. After a game, press Start to play again. A spectator takes the next vacant player seat automatically.</p>
+    <p>Use Chat to talk to the lobby or your game. Sound is off by default; use the speaker button in the lobby or Sound On during a game to enable the original sound effects. Leaving or losing the connection returns your words to the dealer. Games and names last only while this server is running.</p>
+  </dialog>
+</body>
+</html>
